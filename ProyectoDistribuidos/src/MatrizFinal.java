@@ -52,9 +52,9 @@ public class MatrizFinal {
         }
         else{
             //parte abajo
-            System.out.println("------");
-            System.out.println(Arrays.toString(MatrizFinal[(MatrizFinal.length/2)]));
-            System.out.println("------");
+            //System.out.println("------");
+            //System.out.println(Arrays.toString(MatrizFinal[(MatrizFinal.length/2)]));
+            //System.out.println("------");
             for (int i = 0; i < matrizHilo.length-1; i++) {
                 //System.out.println("xddd");
                 for (int j = 0; j < matrizHilo[0].length; j++) {
