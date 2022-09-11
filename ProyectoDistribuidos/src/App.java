@@ -1,20 +1,19 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
-
-import javax.print.event.PrintEvent;
 
 public class App {
 
     public static void generarPgm(String nombreArchivo,int picWidth,int picHeight,int maxvalue, MatrizFinal matriz){
         try{
+            File myFile = new File(nombreArchivo);
+            String filePath = myFile.getCanonicalPath();
             //specify the name of the output..
-            FileWriter fstream = new FileWriter("ProyectoDistribuidos\\src\\"+nombreArchivo);
+            FileWriter fstream = new FileWriter(filePath);
             //we create a new BufferedWriter
             BufferedWriter out = new BufferedWriter(fstream);
             //we add the header, 128 128 is the width-height and 63 is the max value-1 of ur data
@@ -32,9 +31,10 @@ public class App {
         }
     }
     public static void main(String[] args) throws Exception {
-        
+        File myFile = new File("imgNueva.pgm");
+        String filePath = myFile.getCanonicalPath();
 
-        String filePath = "C:\\Users\\diego\\Desktop\\ProyectoDistribuidos\\ProyectoDistribuidos\\src\\imgNueva.pgm";
+        //String filePath = "../src/imgNueva.pgm";
         FileInputStream fileInputStream= new FileInputStream(filePath);
         Scanner scan = new Scanner(fileInputStream);
         // Discard the magic number
@@ -47,6 +47,7 @@ public class App {
         int maxvalue = scan.nextInt();
 
         fileInputStream.close();
+        scan.close();
 
         // Now parse the file as binary data
         fileInputStream = new FileInputStream(filePath);
@@ -71,7 +72,9 @@ public class App {
             }
             //System.out.println();
         }
+        dis.close();
 
+        
         int[][] original = data2D;
 
         int splitSize = original.length / 2;
