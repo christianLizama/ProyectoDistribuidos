@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -85,14 +87,15 @@ public class App {
                             {6, 7,  8,  9},
                             {1, 13, 66, 4},
                             {6, 77, 87, 9},
-                            {4, 33, 12, 45},
-                            {55,23, 43, 13}};
+                            {4, 33, 12, 45}
+                            };
 
         int splitSize = original.length / 2;
-        System.out.println(original[0].length);
-
+        
         int[][] splitArrayPart1 = Arrays.copyOfRange(original,0, splitSize+1);
         int[][] splitArrayPart2 = Arrays.copyOfRange(original, splitSize-1, original.length);
+   
+        
         System.out.println("parte 1");
         for(int i=0;i<splitArrayPart1.length;i++){
             for (int j = 0; j < splitArrayPart1[0].length; j++) {
@@ -116,8 +119,8 @@ public class App {
         System.out.println("");
 
         MatrizFinal matriz = new MatrizFinal(original);
-        Hilo miHilo = new Hilo(splitArrayPart1,matriz);
-        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz);
+        Hilo miHilo = new Hilo(splitArrayPart1,matriz,1);
+        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0);
         try {
             miHilo.start();
             miHilo2.start();
@@ -125,5 +128,7 @@ public class App {
             miHilo2.join();
         } catch (InterruptedException ex) {
         }
+        matriz.imprimirMatriz(matriz.getMatrizFinal());
+        
     }
 }

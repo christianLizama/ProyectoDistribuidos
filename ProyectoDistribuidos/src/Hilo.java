@@ -3,10 +3,12 @@ public class Hilo extends Thread{
 
     int matriz[][];
     MatrizFinal matrizF;
+    int parte;
 
-    public Hilo(int matriz[][], MatrizFinal matrizF) {
+    public Hilo(int matriz[][], MatrizFinal matrizF, int parte) {
         this.matriz = matriz;
         this.matrizF = matrizF;
+        this.parte = parte;
     }
 
     public void erosion(){
@@ -36,13 +38,8 @@ public class Hilo extends Thread{
                 otra[i][j]=min;
             }
         }
-        for (int i = 0; i < otra.length; i++) {
-            for (int j = 0; j < otra[0].length; j++) {
-                System.out.print(otra[i][j]+ " ");
-            }
-            System.out.println();
-        }
         System.out.println("termine...");
+        matrizF.mezclar(otra, parte);
     }
 
     public void dilatacion(){
