@@ -10,6 +10,27 @@ import java.util.Scanner;
 import javax.print.event.PrintEvent;
 
 public class App {
+
+    public static void generarPgm(String nombreArchivo,int picWidth,int picHeight,int maxvalue, MatrizFinal matriz){
+        try{
+            //specify the name of the output..
+            FileWriter fstream = new FileWriter("ProyectoDistribuidos\\src\\"+nombreArchivo);
+            //we create a new BufferedWriter
+            BufferedWriter out = new BufferedWriter(fstream);
+            //we add the header, 128 128 is the width-height and 63 is the max value-1 of ur data
+            out.write("P2\n# CREATOR: XV Version 3.10a  Rev: 12/29/94\n"+picWidth+" "+picHeight+"\n"+maxvalue+"\n");
+            //2 loops to read the 2d array
+            for(int i = 0 ; i<matriz.getMatrizFinal().length;i++)
+               for(int j = 0 ; j<matriz.getMatrizFinal()[0].length;j++)
+                   //we write in the output the value in the position ij of the array
+                   out.write(matriz.getMatrizFinal()[i][j]+" ");
+            //we close the bufferedwritter
+            out.close();
+            }
+        catch (Exception e){
+                System.err.println("Error : " + e.getMessage());
+        }
+    }
     public static void main(String[] args) throws Exception {
         
 
@@ -95,35 +116,28 @@ public class App {
         // System.out.println("");
         // System.out.println("");
 
+        //Hilos dilatacion
         MatrizFinal matriz = new MatrizFinal(original);
-        Hilo miHilo = new Hilo(splitArrayPart1,matriz,1);
-        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0);
+        Hilo miHilo = new Hilo(splitArrayPart1,matriz,1,1,0);
+        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0,1,0);
+        //Hilos erosion
+        MatrizFinal matriz2 = new MatrizFinal(original);
+        Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,5);
+        Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,5);
         try {
             miHilo.start();
             miHilo2.start();
+            miHilo3.start();
+            miHilo4.start();
             miHilo.join();
             miHilo2.join();
+            miHilo3.join();
+            miHilo4.join();
         } catch (InterruptedException ex) {
         }
         //matriz.imprimirMatriz(matriz.getMatrizFinal());
+        generarPgm("dilatacion.pgm",picWidth,picHeight,maxvalue,matriz);
+        generarPgm("erosion.pgm",picWidth,picHeight,maxvalue,matriz2);
         
-        try{
-            //specify the name of the output..
-            FileWriter fstream = new FileWriter("ProyectoDistribuidos\\src\\salida.pgm");
-            //we create a new BufferedWriter
-            BufferedWriter out = new BufferedWriter(fstream);
-            //we add the header, 128 128 is the width-height and 63 is the max value-1 of ur data
-            out.write("P2\n# CREATOR: XV Version 3.10a  Rev: 12/29/94\n"+picWidth+" "+picHeight+"\n"+maxvalue+"\n");
-            //2 loops to read the 2d array
-            for(int i = 0 ; i<matriz.getMatrizFinal().length;i++)
-               for(int j = 0 ; j<matriz.getMatrizFinal()[0].length;j++)
-                   //we write in the output the value in the position ij of the array
-                   out.write(matriz.getMatrizFinal()[i][j]+" ");
-            //we close the bufferedwritter
-            out.close();
-            }
-       catch (Exception e){
-            System.err.println("Error : " + e.getMessage());
-       }
     }
 }
