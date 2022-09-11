@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         
 
-        String filePath = "C:\\Users\\diego\\Desktop\\ProyectoDistribuidos\\ProyectoDistribuidos\\src\\imgEdit.pgm";
+        /*String filePath = "C:\\Users\\diego\\Desktop\\ProyectoDistribuidos\\ProyectoDistribuidos\\src\\imgEdit.pgm";
         FileInputStream fileInputStream= new FileInputStream(filePath);
         Scanner scan = new Scanner(fileInputStream);
         // Discard the magic number
@@ -79,6 +79,49 @@ public class App {
                 System.out.print(splitArrayPart2[i][j]+" ");
             }
             System.out.println();
+        }*/
+
+        int[][] original = {{5, 1,  2,  4},
+                            {6, 7,  8,  9},
+                            {1, 13, 66, 4},
+                            {6, 77, 87, 9},
+                            {4, 33, 12, 45},
+                            {55,23, 43, 13}};
+
+        int splitSize = original.length / 2;
+        System.out.println(original[0].length);
+
+        int[][] splitArrayPart1 = Arrays.copyOfRange(original,0, splitSize+1);
+        int[][] splitArrayPart2 = Arrays.copyOfRange(original, splitSize-1, original.length);
+        System.out.println("parte 1");
+        for(int i=0;i<splitArrayPart1.length;i++){
+            for (int j = 0; j < splitArrayPart1[0].length; j++) {
+                System.out.print(splitArrayPart1[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("");
+        System.out.println("");
+
+        System.out.println("parte 2");
+        for(int i=0;i<splitArrayPart2.length;i++){
+            for (int j = 0; j < splitArrayPart2[0].length; j++) {
+                System.out.print(splitArrayPart2[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        Hilo miHilo = new Hilo(splitArrayPart1);
+        Hilo miHilo2 = new Hilo(splitArrayPart2);
+        try {
+            miHilo.start();
+            miHilo2.start();
+            miHilo.join();
+            miHilo2.join();
+        } catch (InterruptedException ex) {
         }
     }
 }
