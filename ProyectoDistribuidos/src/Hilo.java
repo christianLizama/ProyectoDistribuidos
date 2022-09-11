@@ -2,9 +2,11 @@
 public class Hilo extends Thread{
 
     int matriz[][];
+    MatrizFinal matrizF;
 
-    public Hilo(int matriz[][]) {
+    public Hilo(int matriz[][], MatrizFinal matrizF) {
         this.matriz = matriz;
+        this.matrizF = matrizF;
     }
 
     public void erosion(){

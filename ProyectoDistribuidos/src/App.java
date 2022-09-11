@@ -114,8 +114,10 @@ public class App {
         System.out.println("");
         System.out.println("");
         System.out.println("");
-        Hilo miHilo = new Hilo(splitArrayPart1);
-        Hilo miHilo2 = new Hilo(splitArrayPart2);
+
+        MatrizFinal matriz = new MatrizFinal(original);
+        Hilo miHilo = new Hilo(splitArrayPart1,matriz);
+        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz);
         try {
             miHilo.start();
             miHilo2.start();
