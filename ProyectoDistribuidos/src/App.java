@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
-
+    //funcion de generar un archivo pgm extraida de internet y modificada para su uso en el proyecto
     public static void generarPgm(String nombreArchivo,int picWidth,int picHeight,int maxvalue, MatrizFinal matriz){
         try{
             File myFile = new File(nombreArchivo);
