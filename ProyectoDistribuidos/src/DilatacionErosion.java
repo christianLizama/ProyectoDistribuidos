@@ -1,21 +1,16 @@
 
-public class Hilo extends Thread{
+public class DilatacionErosion {
+    
+    public int[][] matriz;
+    public int elementos;
 
-    int matriz[][];
-    MatrizFinal matrizF;
-    int parte;
-    int tipo;
-    int elementos;
-
-    public Hilo(int matriz[][], MatrizFinal matrizF, int parte, int tipo, int elementos) {
+    public DilatacionErosion(int[][] matriz, int elementos) {
         this.matriz = matriz;
-        this.matrizF = matrizF;
-        this.parte = parte;
-        this.tipo = tipo;
         this.elementos = elementos;
     }
 
-    public void erosion(){
+    public int[][] erosion() {
+
         int fila=matriz.length;
         int colu=matriz[0].length;
         int[][] otra = new int[fila][colu];
@@ -24,10 +19,11 @@ public class Hilo extends Thread{
                 otra[i][j]=matriz[i][j];
             }
         }
-        
-        for(int i=1; i<fila-1; i++){
-            for(int j=1; j<colu-1; j++){
-                int min =255;
+        int i,j;
+
+        for(i=1; i<fila-1; i++){
+            for(j=1; j<colu-1; j++){
+                int min = 255;
                 switch (elementos) {
                     case 0:
                         int k[]= new int[5];
@@ -107,13 +103,12 @@ public class Hilo extends Thread{
                     default:
                         break;
                 }
-                
             }
         }
-        matrizF.mezclar(otra, parte);
+        return otra;
     }
 
-    public void dilatacion(){
+    public int[][] dilatacion() {
         int fila=matriz.length;
         int colu=matriz[0].length;
         int[][] otra = new int[fila][colu];
@@ -206,19 +201,6 @@ public class Hilo extends Thread{
                 }
             }
         }
-        matrizF.mezclar(otra, parte);
-    }
-
-    public void run(){
-        if(tipo==1){
-            dilatacion();
-        }
-        else{
-            erosion();
-        }
-        try {
-            sleep(2000);
-        } catch (InterruptedException ex) {
-        }
+        return otra;
     }
 }
