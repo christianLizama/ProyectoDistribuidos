@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 public class App {
 
     public static void generarPgm(String nombreArchivo,int picWidth,int picHeight,int maxvalue, MatrizFinal matriz){
@@ -73,7 +75,6 @@ public class App {
             //System.out.println();
         }
         dis.close();
-
         
         int[][] original = data2D;
 
@@ -81,52 +82,35 @@ public class App {
 
         int[][] splitArrayPart1 = Arrays.copyOfRange(original,0, splitSize+1);
         int[][] splitArrayPart2 = Arrays.copyOfRange(original, splitSize-1, original.length);
-        
-       
-        
-        // int[][] original = {{5, 1,  2,  4},
-        //                     {6, 7,  8,  9},
-        //                     {1, 13, 66, 4},
-        //                     {6, 77, 87, 9},
-        //                     {4, 33, 12, 45}
-        //                     };
 
-        // int splitSize = original.length / 2;
-        
-        // int[][] splitArrayPart1 = Arrays.copyOfRange(original,0, splitSize+1);
-        // int[][] splitArrayPart2 = Arrays.copyOfRange(original, splitSize-1, original.length);
-   
-        
-        // System.out.println("parte 1");
-        // for(int i=0;i<splitArrayPart1.length;i++){
-        //     for (int j = 0; j < splitArrayPart1[0].length; j++) {
-        //         System.out.print(splitArrayPart1[i][j]+" ");
-        //     }
-        //     System.out.println();
-        // }
-        // System.out.println("");
-        // System.out.println("");
-
-        // System.out.println("parte 2");
-        // for(int i=0;i<splitArrayPart2.length;i++){
-        //     for (int j = 0; j < splitArrayPart2[0].length; j++) {
-        //         System.out.print(splitArrayPart2[i][j]+" ");
-        //     }
-        //     System.out.println();
-        // }
-        // System.out.println("");
-        // System.out.println("");
-        // System.out.println("");
-        // System.out.println("");
-
+        System.out.println("Elementos estructurantes:");
+        System.out.println("     _                                       _   _ ");
+        System.out.println("1) _|_|_    2)  _ _  3)  _ _ _   4)  _   5) |_|_|_|");
+        System.out.println("  |_|_|_|      |_|_|    |_|_|_|     |_|      _|_|_ ");
+        System.out.println("    |_|          |_|                |_|     |_| |_|");
+        System.out.println();
+        boolean valido=true;
+        int opcionE=0;
+        while(valido){
+            System.out.print("Seleccione opcion: ");
+            Scanner sc = new Scanner(System.in);
+            String opcionElementos = sc.nextLine();
+            opcionE = Integer.parseInt(opcionElementos)-1;
+            if(opcionE>-1 && opcionE<5){
+                valido=false;
+            }
+            else{
+                System.out.println("Opcion ingresada no es valida");
+            }
+        }
         //Hilos dilatacion
         MatrizFinal matriz = new MatrizFinal(original);
-        Hilo miHilo = new Hilo(splitArrayPart1,matriz,1,1,0);
-        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0,1,0);
+        Hilo miHilo = new Hilo(splitArrayPart1,matriz,1,1,opcionE);
+        Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0,1,opcionE);
         //Hilos erosion
         MatrizFinal matriz2 = new MatrizFinal(original);
-        Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,5);
-        Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,5);
+        Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,opcionE);
+        Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,opcionE);
         try {
             miHilo.start();
             miHilo2.start();
@@ -141,6 +125,7 @@ public class App {
         //matriz.imprimirMatriz(matriz.getMatrizFinal());
         generarPgm("dilatacion.pgm",picWidth,picHeight,maxvalue,matriz);
         generarPgm("erosion.pgm",picWidth,picHeight,maxvalue,matriz2);
+        System.out.println("Archivos generados correctamente");
         
     }
 }
