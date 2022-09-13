@@ -37,13 +37,14 @@ public class MatrizFinal {
             System.out.println("|");
         }    
     }
-    public void mezclar(int matrizHilo[][],int parte){
+    public synchronized void mezclar(int matrizHilo[][],int parte){
+        
         //imprimirMatriz(matrizHilo);
         //System.out.println("--------");
         if(parte==1){
             //parte arriba
             for (int i = 1; i < MatrizFinal.length/2; i++) {
-                for (int j = 0; j < MatrizFinal[0].length; j++) {
+                for (int j = 1; j < MatrizFinal[0].length-1; j++) {
                     MatrizFinal[i][j]=matrizHilo[i][j];
                 }
             }
@@ -55,7 +56,7 @@ public class MatrizFinal {
             //System.out.println("------");
             for (int i = 0; i < matrizHilo.length-1; i++) {
                 //System.out.println("xddd");
-                for (int j = 0; j < matrizHilo[0].length; j++) {
+                for (int j = 1; j < matrizHilo[0].length-1; j++) {
                     MatrizFinal[i+MatrizFinal.length/2][j]=matrizHilo[i+1][j];
                 }
             }

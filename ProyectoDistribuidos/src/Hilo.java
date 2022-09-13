@@ -1,5 +1,5 @@
 
-public class Hilo extends Thread{
+public class Hilo implements Runnable{
 
     int matriz[][];
     MatrizFinal matrizF;
@@ -14,6 +14,8 @@ public class Hilo extends Thread{
         this.tipo = tipo;
         this.elementos = elementos;
     }
+    
+
 
     public void erosion(){
         int fila=matriz.length;
@@ -207,18 +209,14 @@ public class Hilo extends Thread{
             }
         }
         matrizF.mezclar(otra, parte);
+        //termino("hilo "+parte);
     }
-
     public void run(){
         if(tipo==1){
             dilatacion();
         }
         else{
             erosion();
-        }
-        try {
-            sleep(2000);
-        } catch (InterruptedException ex) {
         }
     }
 }

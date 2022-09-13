@@ -88,25 +88,29 @@ public class App {
                 MatrizFinal matriz2 = new MatrizFinal(original);
                 Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,opcionE);
                 Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,opcionE);
-                try {
-                    miHilo.start();
-                    miHilo2.start();
-                    miHilo3.start();
-                    miHilo4.start();
-                    miHilo.join();
-                    miHilo2.join();
-                    miHilo3.join();
-                    miHilo4.join();
-                } catch (InterruptedException ex) {
-                }
-                //matriz.imprimirMatriz(matriz.getMatrizFinal());
+
+                miHilo.run();
+                miHilo2.run();
+                miHilo3.run();
+                miHilo4.run();
+                //miHilo.join();
+                //miHilo2.join();
+                // miHilo3.join();
+                // miHilo4.join();
+
+                //System.out.println(miHilo.alguienTermino+"  "+miHilo2.alguienTermino);
+                // if(matriz.contar==2){
                 generarPgm("dilatacionParalelo.pgm",lecturaYescritura.getPicWidth(),lecturaYescritura.getPicHeight(),lecturaYescritura.getMaxvalue(),matriz);
                 generarPgm("erosionParalelo.pgm",lecturaYescritura.getPicWidth(),lecturaYescritura.getPicHeight(),lecturaYescritura.getMaxvalue(),matriz2);
                 System.out.println("Archivos generados correctamente");
                 long fin = System.currentTimeMillis();
                 double tiempo = (double) ((fin - inicio));
                 System.out.println(tiempo +" milisegundos");
+                    //     break;
+                    // }
+                    
                 break;
+                
 
             case 2:
                 // Leyendo datos usando readLine
