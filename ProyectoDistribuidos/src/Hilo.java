@@ -3,19 +3,20 @@ public class Hilo implements Runnable{
 
     int matriz[][];
     MatrizFinal matrizF;
-    int parte;
+    int inicio;
+    int termino;
     int tipo;
     int elementos;
 
-    public Hilo(int matriz[][], MatrizFinal matrizF, int parte, int tipo, int elementos) {
+    public Hilo(int matriz[][], MatrizFinal matrizF, int inicio,int termino, int tipo, int elementos) {
         this.matriz = matriz;
         this.matrizF = matrizF;
-        this.parte = parte;
+        this.inicio = inicio;
+        this.termino = termino;
         this.tipo = tipo;
         this.elementos = elementos;
     }
     
-
 
     public void erosion(){
         int fila=matriz.length;
@@ -112,7 +113,7 @@ public class Hilo implements Runnable{
                 
             }
         }
-        matrizF.mezclar(otra, parte);
+        matrizF.mezclar(otra,inicio,termino);
     }
 
     public void dilatacion(){
@@ -208,7 +209,7 @@ public class Hilo implements Runnable{
                 }
             }
         }
-        matrizF.mezclar(otra, parte);
+        matrizF.mezclar(otra,inicio,termino);
         //termino("hilo "+parte);
     }
     public void run(){

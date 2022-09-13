@@ -50,8 +50,21 @@ public class App {
 
         int splitSize = original.length / 2;
 
-        int[][] splitArrayPart1 = Arrays.copyOfRange(original,0, splitSize+1);
-        int[][] splitArrayPart2 = Arrays.copyOfRange(original, splitSize-1, original.length);
+        //dividimos la matriz en 2 partes
+        int[][] splitArrayGrande1 = Arrays.copyOfRange(original,0, splitSize+1+1);
+        int[][] splitArrayGrande2 = Arrays.copyOfRange(original, splitSize-1, original.length);
+
+        //obtenems los largos de ambas partes
+        int splitSize1 = splitArrayGrande1.length / 2;
+        int splitSize2 = splitArrayGrande2.length / 2;
+
+        //estas 2 partes las dividimos en 2 partes cada una, osea 4 partes
+        int[][] splitArrayPart1 = Arrays.copyOfRange(splitArrayGrande1,0, splitSize1+1); 
+        int[][] splitArrayPart2 = Arrays.copyOfRange(splitArrayGrande1, splitSize1-2, splitArrayGrande1.length);
+        int[][] splitArrayPart3 = Arrays.copyOfRange(splitArrayGrande2,0, splitSize2+1);
+        int[][] splitArrayPart4 = Arrays.copyOfRange(splitArrayGrande2, splitSize2-1, splitArrayGrande2.length);
+
+        
         Scanner sc = new Scanner(System.in);
         imprimirMenu();
         boolean valido=true;
@@ -82,17 +95,43 @@ public class App {
                 long inicio = System.currentTimeMillis();
                 //Hilos dilatacion
                 MatrizFinal matriz = new MatrizFinal(original);
-                Hilo miHilo = new Hilo(splitArrayPart1,matriz,1,1,opcionE);
-                Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,0,1,opcionE);
+                // System.out.println("orginal: "+original.length);
+                // System.out.println("mitad: "+original.length/2);
+                // System.out.println("mitad 1 de1 hasta "+(splitSize1+1));
+                // System.out.println("mitad 2 de "+(splitSize1-1)+"hasta "+splitArrayGrande1.length);
+                // System.out.println("mitad 3 de 0 hasta "+(splitSize));
+                // System.out.println("final: de "+(splitSize2-1)+" hasta "+splitArrayGrande2.length);
+
+                // System.out.println(1+"   "+(((original.length/2)/2)+1));
+                // System.out.println((((original.length/2)/2)+1)+"   "+(original.length/2));
+                // System.out.println((original.length/2) +"   "+((original.length/2)+((original.length/2)/2)));
+                // System.out.println((original.length/2)+((original.length/2)/2) +"   "+ (original.length-1));
+
+
+                Hilo miHilo = new Hilo(splitArrayPart1,matriz,1,(((original.length/2)/2)+1),1,opcionE);
+                Hilo miHilo2 = new Hilo(splitArrayPart2,matriz,(((original.length/2)/2)+1),(original.length/2),1,opcionE);
+                Hilo miHilo3 = new Hilo(splitArrayPart3,matriz,(original.length/2), (original.length/2)+((original.length/2)/2),1,opcionE);
+                Hilo miHilo4 = new Hilo(splitArrayPart4,matriz,(original.length/2)+((original.length/2)/2), original.length-1,1,opcionE);
                 //Hilos erosion
                 MatrizFinal matriz2 = new MatrizFinal(original);
-                Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,opcionE);
-                Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,opcionE);
+                //Hilo miHilo3 = new Hilo(splitArrayPart1,matriz2,1,0,opcionE);
+                //Hilo miHilo4 = new Hilo(splitArrayPart2,matriz2,0,0,opcionE);
+
+                Hilo miHilo5 = new Hilo(splitArrayPart1,matriz2,1,(((original.length/2)/2)+1),0,opcionE);
+                Hilo miHilo6 = new Hilo(splitArrayPart2,matriz2,(((original.length/2)/2)+1),(original.length/2),0,opcionE);
+                Hilo miHilo7 = new Hilo(splitArrayPart3,matriz2,(original.length/2), (original.length/2)+((original.length/2)/2),0,opcionE);
+                Hilo miHilo8 = new Hilo(splitArrayPart4,matriz2,(original.length/2)+((original.length/2)/2), original.length-1,0,opcionE);
 
                 miHilo.run();
                 miHilo2.run();
                 miHilo3.run();
                 miHilo4.run();
+
+                miHilo5.run();
+                miHilo6.run();
+                miHilo7.run();
+                miHilo8.run();
+
                 //miHilo.join();
                 //miHilo2.join();
                 // miHilo3.join();
