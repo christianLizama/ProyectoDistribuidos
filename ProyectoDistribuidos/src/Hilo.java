@@ -130,7 +130,7 @@ public class Hilo implements Runnable{
                 otra[i][j]=matrices.getMatrizInicial()[i][j];
             }
         }
-        for(int i=inicio+1; i<termino; i++){
+        for(int i=inicio; i<termino; i++){
             for(int j=1; j<colu-1; j++){
                 int max =0;
                 switch (elementos) {
@@ -242,5 +242,4 @@ public class Hilo implements Runnable{
             }
         }
     }
-
 }
