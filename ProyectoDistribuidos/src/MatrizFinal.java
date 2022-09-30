@@ -1,30 +1,39 @@
 public class MatrizFinal {
 
     int matrizInicial[][];
-    int MatrizFinal[][];
+    int matrizFinal[][];
+    int suma;
+    
+    public void sumar(){
+        suma+=1;
+    }
 
-    public MatrizFinal(int matriz[][]) {
-        this.matrizInicial = matriz;
-        MatrizFinal = new int[matrizInicial.length][matrizInicial[0].length];
-        for (int i = 0; i < matrizInicial.length; i++) {
-            for (int j = 0; j < matrizInicial[0].length; j++) {
-                MatrizFinal[i][j]=matrizInicial[i][j];
+    public MatrizFinal(int matrizInicial[][], int matrizFinal[][]) {
+        this.matrizInicial = matrizInicial;
+        this.matrizFinal = matrizFinal;
+    
+    }
+    public int[][] getMatrizFinal() {
+        return matrizFinal;
+    }
+
+    public int[][] getMatrizInicial() {
+        return matrizInicial;
+    }
+
+    public void setMatrizFinal(int[][] matrizFinal) {
+        this.matrizFinal = matrizFinal;
+    }
+    public synchronized void pintar(int iInicio, int jInicio, int iFinal,int jFinal, int[][] otra,int parte){
+        for (int i = iInicio; i < iFinal; i++) {
+            for (int j = jInicio; j < jFinal; j++) {
+                this.matrizFinal[i][j] = otra[i][j];
             }
         }
     }
 
-    public int[][] getMatriz() {
-        return matrizInicial;
-    }
-    public int[][] getMatrizFinal() {
-        return MatrizFinal;
-    }
-    public void setMatrizFinal(int[][] matrizFinal) {
-        MatrizFinal = matrizFinal;
-    }
-
-    public void setMatriz(int[][] matriz) {
-        this.matrizInicial = matriz;
+    public void setMatrizInicial(int[][] matrizInicial) {
+        this.matrizInicial = matrizInicial;
     }
 
     public void imprimirMatriz(int matriz[][]){
@@ -37,22 +46,5 @@ public class MatrizFinal {
             System.out.println("|");
         }    
     }
-    public synchronized void mezclar(int matrizHilo[][],int inicio, int termino){
-        
-        //imprimirMatriz(matrizHilo);
-        //System.out.println("--------");
-        //System.out.println(inicio +" " +termino);
-        int k=0;
-        int l=0;
-        for (int i = inicio; i < termino; i++) {
-            //System.out.println("pase" + i);
-            for (int j = 1; j < MatrizFinal[0].length-1; j++) {
-                MatrizFinal[i][j]=matrizHilo[k][l];
-                l++;
-            }
-            l=0;
-            k++;
-        }
-        
-    }
+  
 }
